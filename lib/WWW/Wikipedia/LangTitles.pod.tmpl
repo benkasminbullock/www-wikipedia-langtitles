@@ -1,0 +1,33 @@
+[% start_year=2016 %]
+[% MACRO example(file) BLOCK %]
+[%- pl =  file _ ".pl" -%]
+[%- out = file _ "-out.txt" -%]
+[% INCLUDE $pl | xtidy %]
+
+produces output
+
+[% INCLUDE $out | xtidy %]
+
+(This example is included as L<F<[% pl %]>|https://api.metacpan.org/source/BKB/WWW-Wikipedia-LangTitles-[% version %]/examples/[% pl %]> in the distribution.)
+[% END %]
+=encoding UTF-8
+
+=head1 NAME
+
+WWW::Wikipedia::LangTitles - abstract here.
+
+=head1 SYNOPSIS
+
+    use WWW::Wikipedia::LangTitles;
+
+=head1 VERSION
+
+This documents version [% version %] of WWW::Wikipedia::LangTitles corresponding to git
+commit [% commit.commit %] released on [% commit.date %].
+
+=head1 DESCRIPTION
+
+=head1 FUNCTIONS
+
+=cut
+[% INCLUDE "author" %]
