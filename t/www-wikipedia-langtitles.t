@@ -3,7 +3,9 @@
 use warnings;
 use strict;
 use Test::More;
-use WWW::Wikipedia::LangTitles;
+BEGIN {
+    use_ok ('WWW::Wikipedia::LangTitles', 'get_wiki_titles');
+};
 
 done_testing ();
 # Local variables:

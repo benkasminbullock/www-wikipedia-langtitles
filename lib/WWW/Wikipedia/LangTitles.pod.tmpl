@@ -14,11 +14,11 @@ produces output
 
 =head1 NAME
 
-WWW::Wikipedia::LangTitles - abstract here.
+WWW::Wikipedia::LangTitles - get interwiki links from Wikipedia.
 
 =head1 SYNOPSIS
 
-    use WWW::Wikipedia::LangTitles;
+    use WWW::Wikipedia::LangTitles 'get_wiki_titles';
 
 =head1 VERSION
 
@@ -27,7 +27,17 @@ commit [% commit.commit %] released on [% commit.date %].
 
 =head1 DESCRIPTION
 
+Get Wikipedia interwiki link titles.
+
 =head1 FUNCTIONS
+
+=head2 get_wiki_titles
+
+   my $ref = get_wiki_titles ('Helium');
+
+Returns a hash reference with all the articles in each language,
+indexed by the language. For example C<$ref->{ja}> will be equal to ヘ
+リウム, the Japanese title of the equivalent Wikipedia article.
 
 =cut
 [% INCLUDE "author" %]
