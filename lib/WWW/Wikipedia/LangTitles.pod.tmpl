@@ -8,7 +8,7 @@ produces output
 
 [% INCLUDE $out | xtidy %]
 
-(This example is included as L<F<[% pl %]>|https://api.metacpan.org/source/BKB/WWW-Wikipedia-LangTitles-[% version %]/examples/[% pl %]> in the distribution.)
+(This example is included as L<F<[% pl %]>|https://api.metacpan.org/source/BKB/WWW-Wikipedia-LangTitles-[% info.version %]/examples/[% pl %]> in the distribution.)
 [% END %]
 =encoding UTF-8
 
@@ -18,16 +18,20 @@ WWW::Wikipedia::LangTitles - get interwiki links from Wikipedia.
 
 =head1 SYNOPSIS
 
-    use WWW::Wikipedia::LangTitles 'get_wiki_titles';
+[% example('synopsis') %]
 
 =head1 VERSION
 
-This documents version [% version %] of WWW::Wikipedia::LangTitles corresponding to git
-commit [% commit.commit %] released on [% commit.date %].
+This documents version [% info.version %] of
+WWW::Wikipedia::LangTitles corresponding to L<git commit [%
+commit.commit %]|[% info.repo %]/commit/[% commit.commit %]> released
+on [% commit.date %].
 
 =head1 DESCRIPTION
 
-Get Wikipedia interwiki link titles.
+This module retrieves the Wikipedia interwiki link titles from
+wikidata.org. It can be used, for example, to translate a term in
+English into other languages, or to get near equivalents.
 
 =head1 FUNCTIONS
 
@@ -36,8 +40,61 @@ Get Wikipedia interwiki link titles.
    my $ref = get_wiki_titles ('Helium');
 
 Returns a hash reference with all the articles in each language,
-indexed by the language. For example C<$ref->{ja}> will be equal to ヘ
-リウム, the Japanese title of the equivalent Wikipedia article.
+indexed by the language. For example C<< $ref->{th} >> will be equal
+to ฮีเลียม, the Thai title of the equivalent Wikipedia article.
 
-=cut
+The language of the original page can be specified like this:
+
+   use utf8;
+   my $from_th = get_wiki_titles ('ฮีเลียม', lang => 'th');
+
+The URL is encoded using L<URI::Escape/uri_escape_utf8>, so you must
+use character strings not byte strings (use "use utf8;" etc.)
+
+An option "verbose" switches on verbose messages with any true value:
+
+   my $ref = get_wiki_titles ($name, verbose => 1);
+
+=head2 make_wiki_url
+
+    my $url = make_wiki_url ('helium');
+
+Make a URL for the Wikidata page. You will then need to retrieve the
+page and parse the JSON yourself. Use a second argument to specify the
+language of the page:
+
+    use utf8;
+    my $url = make_wiki_url ('ฮีเลียม', 'th');
+
+The default is C<en> for English.
+
+=head1 SEE ALSO
+
+=over
+
+=item L<Locale::Codes>
+
+You may be able to convert the language codes to and from the language
+names using this module. (I have not tested it yet.)
+
+=back
+
+=head1 DEPENDENCIES
+
+=over
+
+=item Carp
+
+L<Carp> is used to report errors
+
+=item LWP::UserAgent
+
+L<LWP::UserAgent> is used to retrieve the data from Wikidata.
+
+=item JSON::Parse
+
+L<JSON::Parse> is used to parse the JSON data from Wikidata.
+
+=back
+
 [% INCLUDE "author" %]

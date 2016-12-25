@@ -3,7 +3,7 @@ use warnings;
 use strict;
 use Template;
 use FindBin '$Bin';
-use Perl::Build qw/get_version get_commit/;
+use Perl::Build qw/get_info get_commit/;
 use Perl::Build::Pod ':all';
 use Deploy qw/do_system older/;
 use Getopt::Long;
@@ -19,7 +19,7 @@ my %pbv = (
     base => $Bin,
     verbose => $verbose,
 );
-my $version = get_version (%pbv);
+my $info = get_info (%pbv);
 my $commit = get_commit (%pbv);
 # Names of the input and output files containing the documentation.
 
@@ -30,7 +30,7 @@ my $output = "$Bin/lib/WWW/Wikipedia/$pod";
 # Template toolkit variable holder
 
 my %vars = (
-    version => $version,
+    info => $info,
     commit => $commit,
 );
 
