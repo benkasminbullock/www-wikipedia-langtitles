@@ -10,6 +10,9 @@ produces output
 
 (This example is included as L<F<[% pl %]>|https://api.metacpan.org/source/BKB/WWW-Wikipedia-LangTitles-[% info.version %]/examples/[% pl %]> in the distribution.)
 [% END %]
+[% MACRO since(version) BLOCK -%]
+This method was added in version [% version %] of the module.
+[%- END %]
 =encoding UTF-8
 
 =head1 NAME
@@ -55,6 +58,12 @@ An option "verbose" switches on verbose messages with any true value:
 
    my $ref = get_wiki_titles ($name, verbose => 1);
 
+The contents of these messages is not specified, and is liable to
+change without notice in future releases.
+
+As of this version, this deletes the non-Wikipedia sites like
+Wikiquote and Wikiversity from the list of returned values
+
 =head2 make_wiki_url
 
     my $url = make_wiki_url ('helium');
@@ -63,10 +72,11 @@ Make a URL for the Wikidata page. You will then need to retrieve the
 page and parse the JSON yourself. Use a second argument to specify the
 language of the page:
 
-    use utf8;
-    my $url = make_wiki_url ('ฮีเลียม', 'th');
+[% example('thai-url') %]
 
-The default is C<en> for English.
+If no language is specified, the default is C<en> for English.
+
+[% since('0.02') %]
 
 =head1 SEE ALSO
 
@@ -95,6 +105,40 @@ L<LWP::UserAgent> is used to retrieve the data from Wikidata.
 
 L<JSON::Parse> is used to parse the JSON data from Wikidata.
 
+=item URI::Escape
+
+L<URI::Escape> is used to make the URLs for Wikidata from the input
+titles.
+
 =back
+
+=head1 EXPORTS
+
+Nothing is exported by default. The export tag ':all' exports all the
+functions of the module.
+
+    use WWW::Wikipedia::LangTitles ':all';
+
+=head1 TESTING
+
+The default tests of the module do not attempt to connect to the
+internet.  To test using an internet connection, run F<xt/scrape.t>
+like this:
+
+    prove -I lib xt/scrape.t
+
+from the top directory of the distribution.
+
+=head1 HISTORY
+
+This module was a collection of small scripts I had been using to
+scrape multilingual article names related to physics from Wikipedia. I
+made the scripts into a CPAN module because I thought it could be
+useful to other people. Specifically, I used my scripts to add some
+Japanese element names to L<Chemistry::Elements>, and I thought this
+method might be useful for someone else.
+
+Version 0.02 added the L</make_wiki_url> for people who want to
+retrieve and parse the output themselves.
 
 [% INCLUDE "author" %]

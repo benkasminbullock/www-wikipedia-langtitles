@@ -23,4 +23,6 @@ MYMETA..*
 # Don't include the script which makes the POD
 ^make-pod.pl$
 # Don't include the outputs from running the examples
-^examples/*-out.txt$
+^examples/.*-out\.txt$
+# Don't include the author tests
+^xt/(checkpod|git)\.t$
