@@ -40,7 +40,7 @@ English into other languages, or to get near equivalents.
 
 =head2 get_wiki_titles
 
-   my $ref = get_wiki_titles ('Helium');
+    my $ref = get_wiki_titles ('Helium');
 
 Returns a hash reference with all the articles in each language,
 indexed by the language. For example C<< $ref->{th} >> will be equal
@@ -48,21 +48,15 @@ to ฮีเลียม, the Thai title of the equivalent Wikipedia article.
 
 The language of the original page can be specified like this:
 
-   use utf8;
-   my $from_th = get_wiki_titles ('ฮีเลียม', lang => 'th');
+    use utf8;
+    my $from_th = get_wiki_titles ('ฮีเลียม', lang => 'th');
 
-The URL is encoded using L<URI::Escape/uri_escape_utf8>, so you must
-use character strings not byte strings (use "use utf8;" etc.)
+The URL is encoded using L<URI::Escape/uri_escape_utf8>, so use
+character, not byte, strings (use "use utf8;" etc.)
 
-An option "verbose" switches on verbose messages with any true value:
-
-   my $ref = get_wiki_titles ($name, verbose => 1);
-
-The contents of these messages is not specified, and is liable to
-change without notice in future releases.
-
-As of this version, this deletes the non-Wikipedia sites like
-Wikiquote and Wikiversity from the list of returned values
+As of version [% info.version %], get_wiki_titles deletes the
+non-encyclopedia sites like Wikiquote and Wikiversity from the list of
+returned values.
 
 =head2 make_wiki_url
 
