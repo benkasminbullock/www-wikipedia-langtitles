@@ -8,7 +8,7 @@ produces output
 
 [% INCLUDE $out | xtidy %]
 
-(This example is included as L<F<[% pl %]>|https://api.metacpan.org/source/BKB/WWW-Wikipedia-LangTitles-[% info.version %]/examples/[% pl %]> in the distribution.)
+(This example is included as L<F<[% pl %]>|https://fastapi.metacpan.org/source/BKB/WWW-Wikipedia-LangTitles-[% info.version %]/examples/[% pl %]> in the distribution.)
 [% END %]
 [% MACRO since(version) BLOCK -%]
 This method was added in version [% version %] of the module.
@@ -32,8 +32,8 @@ on [% commit.date %].
 
 =head1 DESCRIPTION
 
-This module retrieves the Wikipedia interwiki link titles from
-wikidata.org. It can be used, for example, to translate a term in
+This module retrieves the Wikipedia interwiki link titles from the web
+site wikidata.org. It can be used, for example, to translate a term in
 English into other languages, or to get near equivalents.
 
 =head1 FUNCTIONS
@@ -42,9 +42,12 @@ English into other languages, or to get near equivalents.
 
     my $ref = get_wiki_titles ('Helium');
 
-Returns a hash reference with all the articles in each language,
-indexed by the language. For example C<< $ref->{th} >> will be equal
-to ฮีเลียม, the Thai title of the equivalent Wikipedia article.
+Given a word or phrase as an argument, which is the title of a
+Wikipedia article, the return value is a hash reference containing
+keys which are language codes, and values which are the names of the
+equivalent Wikipedia article in other languages. For example, in the
+above case of B<Helium>, C<< $ref->{th} >> will be equal to ฮีเลียม, the
+Thai title of the Wikipedia article on helium.
 
 The language of the original page can be specified like this:
 
@@ -78,8 +81,10 @@ If no language is specified, the default is C<en> for English.
 
 =item L<Locale::Codes>
 
-You may be able to convert the language codes to and from the language
-names using this module. (I have not tested it yet.)
+This module enables one to convert the language key names given by
+this module into the English-language names of the languages.
+
+[% example("locale-codes") %]
 
 =back
 
