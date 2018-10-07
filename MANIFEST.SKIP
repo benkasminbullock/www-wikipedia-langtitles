@@ -25,4 +25,4 @@ MYMETA..*
 # Don't include the outputs from running the examples
 ^examples/.*-out\.txt$
 # Don't include the author tests
-^xt/(checkpod|git)\.t$
+^xt/.*\.t$
